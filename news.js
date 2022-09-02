@@ -54,7 +54,6 @@ const displayCategoryDetails=(details)=>{
                     </div>
                 </div>
             </div>
-
         `;
         categoryContainer.appendChild(categoryDiv);
     })
@@ -69,15 +68,12 @@ const loadNewsDetails=async id=>{
 }
 
 
-// const displayNewsDetails=newsDetail=>{
+const displayNewsDetails=newsDetail=>{
 
-//     newsDetail.forEach(newDetail=>{
-//         console.log(newDetail)
-//         const newsDetails=document.getElementById('newsDetails');
-//         newsDetails.innerHTML=`
-
-//     `;
-
-//     })
-    
-// }
+    newsDetail.forEach(newDetail=>{
+        console.log(newDetail)
+        const newsDetails=document.getElementById('newsDetails');
+        newsDetails.innerHTML=`
+    `;
+    })
+}

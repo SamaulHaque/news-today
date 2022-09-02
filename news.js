@@ -44,12 +44,12 @@ const displayCategoryDetails=(details)=>{
                 <h3>${detail.title}</h3>
                 <p class="elipsis">${detail.details}</p>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-lg-4 col-md-12">
                         <img class="img-fluid w-25 rounded-circle" src="${detail.author.img}">
                         <span>${detail.author.name}</span>
                     </div>
-                    <div class="col-4 mt-2">View: ${detail.total_view}</div>
-                    <div class="col-4">
+                    <div class="col-lg-4 col-md-12 mt-2">View: ${detail.total_view}</div>
+                    <div class="col-lg-4 col-md-12">
                         <button class="btn btn-primary" onclick="loadNewsDetails('${detail.id}')" data-bs-toggle="modal" data-bs-target="#newsDetailsModal">See Details</button>
                     </div>
                 </div>

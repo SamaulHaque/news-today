@@ -25,6 +25,7 @@ const displayNews=(newses)=>{
 
 newsLoad();
 
+
 const newsCategoryDetails=async id=>{
 
     loader(true);//spiner loading start
@@ -37,7 +38,11 @@ const newsCategoryDetails=async id=>{
 }
 
 const displayCategoryDetails=(details)=>{
-    
+    console.log(details)
+    details.sort((a,b)=>{
+        return b.propertyName-a.propertyName
+    });
+
     const categoryContainer=document.getElementById('category-container');
     categoryContainer.innerText='';
 
@@ -69,6 +74,8 @@ const displayCategoryDetails=(details)=>{
         
     })
     loader(false);//spiner loading end
+
+    
 
     //news items count
     const itemsCountField=document.getElementById('items-count-field');

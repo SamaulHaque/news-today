@@ -8,12 +8,15 @@ const newsLoad=async()=>{
 const displayNews=(newses)=>{
     const newsContainer=document.getElementById('news-container');
     
+    
 
     newses.forEach(news=>{
         const newsDiv=document.createElement('div');
         newsDiv.classList.add('display');
         newsDiv.innerHTML=`
+        <div>
         <a href="#" onclick="newsCategoryDetails('${news.category_id}')" class="category"> ${news.category_name}</a>
+        </div>
         `;
         newsContainer.appendChild(newsDiv);
     })
@@ -30,17 +33,15 @@ const newsCategoryDetails=async id=>{
     const res=await fetch(url);
     const data=await res.json();
     displayCategoryDetails(data.data);
+    
 }
 
 const displayCategoryDetails=(details)=>{
     
     const categoryContainer=document.getElementById('category-container');
-    categoryContainer.classList.remove('d-none');
     categoryContainer.innerText='';
 
     details.forEach(detail=>{
-        console.log(detail);
-
         const categoryDiv=document.createElement('div');
         categoryDiv.classList.add('row');
         categoryDiv.innerHTML=`
@@ -65,8 +66,16 @@ const displayCategoryDetails=(details)=>{
             </div>
         `;
         categoryContainer.appendChild(categoryDiv);
+        
     })
     loader(false);//spiner loading end
+
+    //news items count
+    const itemsCountField=document.getElementById('items-count-field');
+    const itemsCuantity=details.length;
+    const defaultText='Items Found For This Category'
+    itemsCountField.value=`${itemsCuantity} ${defaultText}`;
+    
 }
 
 
@@ -90,8 +99,6 @@ const loadNewsDetails=async _id=>{
 
 
 const displayNewsDetails=(detail)=>{
-
-        console.log(detail);
         
         detail.forEach(detailNews=>{
             const newsTitle=document.getElementById('newsDetailsModalLabel')
@@ -117,11 +124,5 @@ const displayNewsDetails=(detail)=>{
                 <p>Total View: ${detailNews.total_view ? detailNews.total_view: 'Total View Not Found'}</p>
             `
         })
-    //     <P>Author Name: ${news.author.name ? news.author.name : 'Author Name not found'}</p>
-    //     <P>Category Id: ${news.category_id ? news.category_id : 'Id not found'}</p>
-    //     <P>Title: ${news.title ? display.title : 'Title not found'}</p>
-    //     <P>Total view: ${news.total_view ? news.total_view : 'Total view not found'}</p>
 
-    // `;
-    
 }

@@ -30,10 +30,13 @@ const newsCategoryDetails=async id=>{
 }
 
 const displayCategoryDetails=(details)=>{
+    console.log(details);
     const categoryContainer=document.getElementById('category-container');
     categoryContainer.innerText='';
 
     details.forEach(detail=>{
+        console.log(detail);
+
         const categoryDiv=document.createElement('div');
         categoryDiv.classList.add('row');
         categoryDiv.innerHTML=`
@@ -50,9 +53,9 @@ const displayCategoryDetails=(details)=>{
                     <span>${detail.author.name}</span>
                 </div>
 
-                <div class="col-lg-4 col-md-12 mt-2">View: ${detail.total_view}</div>
+                <div class="col-lg-4 col-md-12 mt-2"><i class="fa-regular fa-eye"></i> ${detail.total_view}</div>
                 <div class="col-lg-4 col-md-12">
-                    <button class="btn btn-primary" onclick="loadNewsDetails('${detail.id}')" data-bs-toggle="modal" data-bs-target="#newsDetailsModal">See Details</button>
+                    <button class="btn btn-primary" onclick="loadNewsDetails('${detail._id}')" data-bs-toggle="modal" data-bs-target="#newsDetailsModal">See Details</button>
                 </div>
               </div>
             </div>
@@ -62,26 +65,47 @@ const displayCategoryDetails=(details)=>{
 }
 
 
-const loadNewsDetails=async id=>{
-    const url=`https://openapi.programming-hero.com/api/news/2e78e5e0310c2e9adbb6efb1a263e745`;
+const loadNewsDetails=async _id=>{
+    const url=`https://openapi.programming-hero.com/api/news/${_id}`;
     const res=await fetch(url);
     const data=await res.json();
     displayNewsDetails(data.data);
 }
 
 
-const displayNewsDetails=displayDetails=>{
+const displayNewsDetails=(detail)=>{
 
-    displayDetails.forEach(display=>{
-        console.log(display)
-        const newsDetails=document.getElementById('news-details-body')
-        newsDetails.innerHTML=`
+        console.log(detail);
         
-        <P>Author Name: ${display.author.name ? display.author.name : 'Author Name not found'}</p>
-        <P>Category Id: ${display.category_id ? display.category_id : 'Id not found'}</p>
-        <P>Title: ${display.title ? display.title : 'Title not found'}</p>
-        <P>Total view: ${display.total_view ? display.total_view : 'Total view not found'}</p>
+        detail.forEach(detailNews=>{
+            const newsTitle=document.getElementById('newsDetailsModalLabel')
+            newsTitle.innerText=detailNews.title ? detailNews.title : 'Title not found';
 
-    `;
-    })
+            console.log(detailNews);
+            const modalBodyDiv=document.getElementById('news-details-body');
+            modalBodyDiv.innerHTML=`
+                <p>Category Id: ${detailNews.category_id ? detailNews.category_id: 'Category Id Not Found'}</p>
+
+                <p>Author Name: ${detailNews.author.name ? detailNews.author.name: 'Author Name Not Found'}</p>
+
+                <p>Publish Date: ${detailNews.author.published_date ? detailNews.author.published_date: 'Publish Not Found'}</p>
+
+                <img src="${detailNews.thumbnail_url}">
+
+                <p>Details: ${detailNews.details ? detailNews.details: 'Details Not Found'}</p>
+
+                <p>Number: ${detailNews.rating.number ? detailNews.rating.number: 'Number Not Found'}</p>
+
+                <p>Badge: ${detailNews.rating.badge ? detailNews.rating.badge: 'Badge Not Found'}</p>
+
+                <p>Total View: ${detailNews.total_view ? detailNews.total_view: 'Total View Not Found'}</p>
+            `
+        })
+    //     <P>Author Name: ${news.author.name ? news.author.name : 'Author Name not found'}</p>
+    //     <P>Category Id: ${news.category_id ? news.category_id : 'Id not found'}</p>
+    //     <P>Title: ${news.title ? display.title : 'Title not found'}</p>
+    //     <P>Total view: ${news.total_view ? news.total_view : 'Total view not found'}</p>
+
+    // `;
+    
 }

@@ -40,8 +40,7 @@ const newsCategoryDetailsLoad=async id=>{
     }
     catch(error){
         console.log(error);
-    }
-    
+    } 
 }
 
 //all news details in a category display
@@ -90,7 +89,6 @@ const displayCategoryDetails=(details)=>{
     const defaultText='Items Found For This Category'
     itemsCountField.value=`${itemsCuantity} ${defaultText}`;
 }
-
 
 
 //spiner loading
@@ -145,6 +143,6 @@ const displayNewsDetails=(detail)=>{
             `;
         })
 
-}
+    }
 
 newsCategoryDetailsLoad('08')//show all news default view function

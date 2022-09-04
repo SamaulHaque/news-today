@@ -19,7 +19,7 @@ const displayNews=(newses)=>{
         const newsDiv=document.createElement('div');
         newsDiv.innerHTML=`
         <div>
-        <a href="#" onclick="newsCategoryDetails('${news.category_id}')" class="category"> ${news.category_name}</a>
+        <a href="#" onclick="newsCategoryDetailsLoad('${news.category_id}')" class="category"> ${news.category_name}</a>
         </div>
         `;
         newsContainer.appendChild(newsDiv);
@@ -27,8 +27,9 @@ const displayNews=(newses)=>{
 }
 newsLoad();//all news category function call
 
+
 //all news details in a category load
-const newsCategoryDetails=async id=>{
+const newsCategoryDetailsLoad=async id=>{
     loader(true);//spiner loading start
     const url=`https://openapi.programming-hero.com/api/news/category/${id}`;
     //error handler
@@ -56,7 +57,6 @@ const displayCategoryDetails=(details)=>{
     categoryContainer.innerText='';
 
     details.forEach(detail=>{
-        console.log(detail);
         const categoryDiv=document.createElement('div');
         categoryDiv.classList.add('row');
         categoryDiv.innerHTML=`
@@ -127,22 +127,24 @@ const displayNewsDetails=(detail)=>{
 
             const modalBodyDiv=document.getElementById('news-details-body');
             modalBodyDiv.innerHTML=`
-              <p>Category Id: ${detailNews.category_id ? detailNews.category_id: 'Category Id Not Found'}</p>
+              <p>Category Id: ${detailNews.category_id ? detailNews.category_id : 'Category Id Not Found'}</p>
 
-              <p>Author Name: ${detailNews.author.name ? detailNews.author.name: 'Author Name Not Found'}</p>
+              <p>Author Name: ${detailNews.author.name ? detailNews.author.name : 'Author Name Not Found'}</p>
 
-              <p>Publish Date: ${detailNews.author.published_date ? detailNews.author.published_date: 'Publish Not Found'}</p>
+              <p>Publish Date: ${detailNews.author.published_date ? detailNews.author.published_date : 'Publish Not Found'}</p>
 
-              <img src="${detailNews.thumbnail_url}">
+              <img src="${detailNews.thumbnail_url ? detailNews.thumbnail_url : 'Thumbnail Not Found' }">
 
-              <p>Details: ${detailNews.details ? detailNews.details: 'Details Not Found'}</p>
+              <p>Details: ${detailNews.details ? detailNews.details : 'Details Not Found'}</p>
 
-              <p>Number: ${detailNews.rating.number ? detailNews.rating.number: 'Number Not Found'}</p>
+              <p>Number: ${detailNews.rating.number ? detailNews.rating.number : 'Number Not Found'}</p>
 
-              <p>Badge: ${detailNews.rating.badge ? detailNews.rating.badge: 'Badge Not Found'}</p>
+              <p>Badge: ${detailNews.rating.badge ? detailNews.rating.badge : 'Badge Not Found'}</p>
 
-              <p>Total View: ${detailNews.total_view ? detailNews.total_view: 'Total View Not Found'}</p>
+              <p>Total View: ${detailNews.total_view ? detailNews.total_view : 'Total View Not Found'}</p>
             `;
         })
 
 }
+
+newsCategoryDetailsLoad('08')//show all news default view function
